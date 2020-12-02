@@ -255,7 +255,7 @@ def register_coco_person_sem_seg():
     DatasetCatalog.register(
         "coco_person_sem_seg_train",
         lambda: load_sem_seg_pairs(
-            "./dataset/all_train_mask.txt")
+            "./datasets/all_train_mask.txt")
     )
     MetadataCatalog.get("coco_person_sem_seg_train").set(
         evaluator_type="sem_seg",
@@ -265,7 +265,7 @@ def register_coco_person_sem_seg():
     DatasetCatalog.register(
         "coco_person_sem_seg_val",
         lambda: load_sem_seg_pairs(
-            "./dataset/coco_val_mask.txt")
+            "./datasets/coco_val_mask.txt")
     )
     MetadataCatalog.get("coco_person_sem_seg_val").set(
         evaluator_type="sem_seg",
