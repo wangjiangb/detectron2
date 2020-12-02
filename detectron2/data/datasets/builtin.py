@@ -28,6 +28,7 @@ from .coco import load_sem_seg, register_coco_instances
 from .coco_panoptic import register_coco_panoptic, register_coco_panoptic_separated
 from .lvis import get_lvis_instances_meta, register_lvis_instances
 from .pascal_voc import register_pascal_voc
+from .semantic_seg import load_sem_seg_pairs
 
 # ==== Predefined datasets and splits for COCO ==========
 
@@ -250,6 +251,30 @@ def register_all_ade20k(root):
         )
 
 
+def register_coco_person_sem_seg():
+    DatasetCatalog.register(
+        "coco_person_sem_seg_train",
+        lambda: load_sem_seg_pairs(
+            "./dataset/all_train_mask.txt")
+    )
+    MetadataCatalog.get("coco_person_sem_seg_train").set(
+        evaluator_type="sem_seg",
+        stuff_classes=["background", "person"],
+        ignore_label=255,
+    )
+    DatasetCatalog.register(
+        "coco_person_sem_seg_val",
+        lambda: load_sem_seg_pairs(
+            "./dataset/coco_val_mask.txt")
+    )
+    MetadataCatalog.get("coco_person_sem_seg_val").set(
+        evaluator_type="sem_seg",
+        stuff_classes=["background", "person"],
+        ignore_label=255,
+    )
+
+
+
 # True for open source;
 # Internally at fb, we register them elsewhere
 if __name__.endswith(".builtin"):
@@ -261,3 +286,4 @@ if __name__.endswith(".builtin"):
     register_all_cityscapes_panoptic(_root)
     register_all_pascal_voc(_root)
     register_all_ade20k(_root)
+    register_coco_person_sem_seg()
