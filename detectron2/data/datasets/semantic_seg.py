@@ -1,5 +1,3 @@
-import os
-import cv2
 
 from detectron2.utils.file_io import PathManager
 
